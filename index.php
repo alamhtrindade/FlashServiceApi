@@ -22,7 +22,7 @@ if($obj = $sth->fetch(PDO::FETCH_OBJ)){
   $user->setAddress($obj->address);
   $user->setPassword($obj->password);
   
-  echo json_encode($user);
+  print_r($user);
 
 }else{
   echo('Nao executou busca');
