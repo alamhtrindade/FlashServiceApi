@@ -1,5 +1,6 @@
 <?php
 
-sucess
+$data = ["Status:"," OK"];
+echo json_encode($data)
 
 ?>
