@@ -1,5 +1,5 @@
 <?php
 
-echo('Sucess');
+sucess
 
 ?>
