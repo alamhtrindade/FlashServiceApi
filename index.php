@@ -1,14 +1,15 @@
 <?php
 
+require_once('common-class/Database.php');
+require_once('config/autoload.php');
+
 $db = Database::singleton();
 
-$sql = 'SELECT * FROM ' . self::_table . ' ORDER BY id DESC';
+$sql = 'SELECT * FROM _user ORDER BY id DESC';
 
 $sth = $db->prepare($sql);
 
 $sth->execute();
-
-echo '<pre>'
 
 if($obj = $sth->fetch(PDO::FETCH_OBJ)){
   
@@ -26,10 +27,6 @@ if($obj = $sth->fetch(PDO::FETCH_OBJ)){
 }else{
   echo('Nao executou busca');
 }
-
-
-echo('Terminado');
-
 
 
 ?>
