@@ -1,2 +1,1 @@
 <?php
-  BASE_URL = 

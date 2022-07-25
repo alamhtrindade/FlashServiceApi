@@ -1,8 +1,5 @@
 <?php
 
-header("Content-Type:application/json");
+$json = file_get_contents('php://input');
 
-$data['status'] = "SUCESS";
-$data['method'] = $_SERVER['REQUEST_METHOD'];
-
-echo json_encode($data);
+?>
