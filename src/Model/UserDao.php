@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../../common-class/Database.php');
+require_once('../../../../common-class/Database.php');
 require_once('User.php');
 
 class UserDao{
@@ -17,8 +17,8 @@ class UserDao{
     
     $sth = $db->prepare($sql);
 
-    $sth->bindValue(1, strtolower(trim ($user->getName())), PDO::PARAM_STR);
-    $sth->bindValue(2, trim ($user->getEmail()), PDO::PARAM_STR);
+    $sth->bindValue(1, $user->getName(), PDO::PARAM_STR);
+    $sth->bindValue(2, strtolower(trim($user->getEmail())), PDO::PARAM_STR);
     $sth->bindValue(3, $user->getPhone(), PDO::PARAM_STR);
     $sth->bindValue(4, $user->getAddress(), PDO::PARAM_STR);
     $sth->bindValue(5, $user->getPhoto(), PDO::PARAM_STR);
@@ -65,7 +65,7 @@ class UserDao{
     
     $sth = $db->prepare($sql);
 
-    $sth->bindValue(1, strtolower(trim ($user->getName())), PDO::PARAM_STR);
+    $sth->bindValue(1, $user->getName(), PDO::PARAM_STR);
     $sth->bindValue(2, $user->getPhone(), PDO::PARAM_STR);
     $sth->bindValue(3, $user->getAddress(), PDO::PARAM_STR);
     $sth->bindValue(4, $user->getPhoto(), PDO::PARAM_STR);
@@ -140,8 +140,9 @@ class UserDao{
 
     $sth->execute();
 
-    return ($sth->rouCount() >0)?true:false;
+    return ($sth->rowCount() > 0)?true:false;
   }
+
 
   public function login($email,$password){
     

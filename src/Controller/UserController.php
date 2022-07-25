@@ -2,6 +2,9 @@
 
 require_once('../../../Model/UserDao.php');
 require_once('../../../Model/User.php');
+require_once('../../../Model/Erro.php');
+
+header("Content-Type:application/json");
 
 class UserController{
   
@@ -10,49 +13,51 @@ class UserController{
 
   public function __construct(){
     $this->userDao = new UserDao();
+    $this->erro = new Erro();
   }
 
   public function createAction($json){
 
       try{
 
+        
         $name = $json->name;
         $email = $json->email;
         $password = $json->password;
         $confirmPassword = $json->confirmPassword;
          
-        if(!empty($name)){
-          $this->erro->setWarning("Nome é Obrigatório!");
+        if(empty($name)){
+          $this->erro->setMessage("Nome é Obrigatório!");
           echo json_encode($this->erro);
           die();
         }
           
-        if(!empty($email)){
-          $this->erro->setWarning("Email é Obrigatório!");
+        if(empty($email)){
+          $this->erro->setMessage("Email é Obrigatório!");
           echo json_encode($this->erro);
           die();
         }
         
-        if(!empty($password)){
-          $this->erro->setWarning("Senha é Obrigatório!");
+        if(empty($password)){
+          $this->erro->setMessage("Senha é Obrigatório!");
           echo json_encode($this->erro);
           die();
         }
 
-        if(!empty($confirmPassword)){
-          $this->erro->setWarning("Confirme a Senha é Obrigatório!");
+        if(empty($confirmPassword)){
+          $this->erro->setMessage("Confirme a Senha é Obrigatório!");
           echo json_encode($this->erro);
           die();
         }
 
         if($this->userDao->getUserByEmail($email)){
-          $this->erro->setWarning("Email já cadastrado!");
+          $this->erro->setMessage("Email já cadastrado!");
           echo json_encode($this->erro);
           die();
         }
 
         if($password!=$confirmPassword){
-          $this->erro->setWarning("As senhas não conferem!");
+          $this->erro->setMessage("As senhas não conferem!");
           echo json_encode($this->erro);
           die();
         }else{
@@ -64,11 +69,11 @@ class UserController{
           $user->setPassword($password);
           
           if($this->userDao->create($user)){
-            $this->erro->setWarning("Usuário Cadastrado com Sucesso!");
+            $this->erro->setMessage("Usuário Cadastrado com Sucesso!");
             echo json_encode($this->erro);
             die();
           }else{
-			      $this->erro->setWarning("Ocorreu um Erro, Tente Novamente!");
+			      $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
              die();
           }

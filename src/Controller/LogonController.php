@@ -1,23 +1,23 @@
 <?php
 
-require_once('../../Model/UserDao.php');
+require_once('../../Model/LogonDao.php');
 
 header("Content-Type:application/json");
 
 class LogonController{
 	
-	public $userDao;
+	public $LogonDao;
 	public $erro;
 
 	public function __construct(){
-		$this->userDao = new UserDao();
+		$this->logonDao = new LogonDao();
 	}
 
 	public function loginAction($json){
 
     try{
 
-      if($user = $this->userDao->login($json->email,$json->password)){
+      if($user = $this->logonrDao->login($json->email,$json->password)){
         
         
         $_SESSION['USER'] = serialize($user);
