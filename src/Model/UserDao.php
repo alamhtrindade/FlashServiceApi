@@ -128,6 +128,21 @@ class UserDao{
     return false;
   }
 
+  public function getUserByEmail($email){
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE email = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, trim(strtolower($email)), PDO::PARAM_STR);
+
+    $sth->execute();
+
+    return ($sth->rouCount() >0)?true:false;
+  }
+
   public function login($email,$password){
     
     $db = Database::singleton();
