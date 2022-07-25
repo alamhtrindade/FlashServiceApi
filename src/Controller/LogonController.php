@@ -17,7 +17,7 @@ class LogonController{
 
     try{
 
-      if($user = $this->logonrDao->login($json->email,$json->password)){
+      if($user = $this->logonDao->login($json->email,$json->password)){
         
         
         $_SESSION['USER'] = serialize($user);
