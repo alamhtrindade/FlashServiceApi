@@ -1,0 +1,39 @@
+Rotas da Aplicação:
+
+/* ROTAS DE LOGON */
+
+Login -> $Base_Url/login/ -> Recebe um Json{email,senha} e retorna um Json{Usuário}
+
+
+
+/* ROTAS DE USUÁRIO */
+
+Criar Usuário -> $Base_Url/user/create/ -> Recebe um Json{nome, email, senha, confirme a senha} e retorna um Json {mensagem sucesso ou falha}
+
+Atualizar Usuário -> $Base_Url/user/update/ -> Recebe um Json {Usuário} e retorna um Json{mensagem sucesso ou falha}
+
+Atualizar Senha -> $Base_Url/user/updatepassword/ ->Recebe um Json {id, senha, nova senha e confirme a nova senha} e retorna um Json{mensagem sucesso ou falha}
+
+
+
+/* ROTAS DE PESQUISA */
+
+Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço buscado}
+
+
+
+/* ROTAS DE PESQUISAS RECENTES */
+
+Listar Recentes -> $Base_Url/recents/list/ -> recebe um Json{id do usuário} e retorna u Json{lista de pesquisas recentes}
+
+Deletar Busca Recente -> $Base_Url/recents/delete/ -> recebe um Json{id da pesquisa recente} e retorna u Json{mensagem de sucesso ou falha}
+
+
+
+/* ROTAS DE FAVORITOS */
+
+Inserir Novo Favorito -> $Base_Url/favorits/create/ -> recebe um Json{id do usuário e $id prestador de serviço} e retorna u Json{sucesso ou falha}
+
+Listar Favoritos -> $Base_Url/favorits/list/ -> recebe um Json{id do usuário} e retorna u Json{lista de favoritos}
+
+Remover da Lista de Favoritos -> $Base_Url/favorits/delete/ -> recebe um Json{id do favorito} e retorna u Json{mensagem de sucesso ou falha}

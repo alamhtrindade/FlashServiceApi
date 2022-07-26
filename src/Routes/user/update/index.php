@@ -1,3 +1,13 @@
 <?php
 
-echo('Entrou no User Update!');
+require_once('../../../Controller/UserController.php');
+
+$json = json_decode(file_get_contents('php://input',true));
+
+$controller = 'User';
+$action = 'update';
+
+$controller = new UserController();
+$controller->updateAction($json);
+
+?>
