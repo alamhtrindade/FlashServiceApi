@@ -37,3 +37,59 @@ Inserir Novo Favorito -> $Base_Url/favorits/create/ -> recebe um Json{id do usu�
 Listar Favoritos -> $Base_Url/favorits/list/ -> recebe um Json{id do usuário} e retorna u Json{lista de favoritos}
 
 Remover da Lista de Favoritos -> $Base_Url/favorits/delete/ -> recebe um Json{id do favorito} e retorna u Json{mensagem de sucesso ou falha}
+
+
+
+/* LISTA DE OCUPAÇÃO (_occupation) }
+
+A OCUPAÇÃO é uma lista de serviços, como manicure, eletricista, jardineiro, etc. Esta Lista é uma lista do sistema, sendo assim, as rotas que serão utilizadas por hora será somente a list, quando for cadastrar um prestador de serviço. Esta lista será atualizada pelo time de desenvolvimento, conforme cresce a demanda no aplicativo.
+Algumas Ocupações já estão previamente inseridas com seus respectivos identificadores:
+  
+  ID    -    OCUPAÇÃO
+
+  1     -    ADESTRADOR DE ANIMAIS
+  2     -    ALFAIATE
+  3     -    AMOLADOR
+  4     -    ANIMADOR DE FESTAS
+  5     -    ARMADOR DE FERRAGENS
+  6     -    AZULEJISTA
+  7     -    BORDADEIRA
+  8     -    BORRACHEIRO
+  9     -    CABELEIREIRA(O)
+  10    -    CALHEIRO
+  11    -    CARPINTEIRO
+  12    -    CHAVEIRO
+  13    -    CHURRASQUEIRO
+  14    -    CONFEITEIRA
+  15    -    COSTUREIRA
+  16    -    COZINHEIRA
+  17    -    CUIDADOR DE IDOSOS
+  18    -    DEPILADOR
+  19    -    DIARISTA
+  20    -    DEPILADORA
+  21    -    ELETRICISTA RESIDENCIAL
+  22    -    ELETRICISTA DE AUTOMÓVEL
+  23    -    ENCANADOR
+  24    -    FOTOGRAFO
+  25    -    GESSEIRO
+  26    -    GUIA DE TURISMO
+  27    -    JARDINEIRO
+  28    -    LOCUTOR
+  29    -    MAGICO
+  30    -    MANICURE/PEDICURE
+  31    -    MAQUIADORA
+  32    -    MARCENEIRO
+  33    -    MECÂNICO DE MOTOS
+  34    -    MECÂNICO DE CARRO
+  35    -    MECÂNICO DE PESADOS
+  36    -    MECÂNICO DE MÁQUINAS DE COSTURA
+  37    -    MOTOBOY
+  38    -    PANFLETEIRO
+  39    -    PEDREIRO
+  40    -    PINTOR RESIDENCIAL
+  41    -    PISCINEIRO
+  42    -    REPARADOR DE ELETRODOMÉSTICOS
+  43    -    REPARADOR/INSTALADOR DE AR CONDICIONADO
+  44    -    SAPATEIRO
+  45    -    TECNICO DE INFORMÁTICA
+  46    -    VIDRACEIRO
