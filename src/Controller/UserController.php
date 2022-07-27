@@ -17,10 +17,7 @@ class UserController{
   }
 
   public function createAction($json){
-
       try{
-
-        
         $name = $json->name;
         $email = $json->email;
         $password = $json->password;
@@ -82,24 +79,8 @@ class UserController{
         return $e->getMessage();
       }
   }
-/*
-  public function listAction(){
-    
-    $userDao = new UserDao();
-
-    $viewModel = array(
-        'users' => $userDao->getAll(),
-      );
-
-    $this->setRoute($this->view->getListUsersRoute());
-    
-    return $this->showView($viewModel);
-  }
-*/
-
 
   public function updateAction($json){
-
     try{
 
       $id = $json->id;
@@ -137,7 +118,58 @@ class UserController{
       echo json_encode($this->erro);
 
     }
-    
+  }
+  
+  public function updatePasswordAction($json){
+      try{
+        $id = $json->id;
+        $password = $json->password;
+        $newPassword = $json->newPassword;
+        $confirmPassword = $json->confirmPassword;
+               
+        if(empty($password)){
+          $this->erro->setMessage("Senha é Obrigatório!");
+          echo json_encode($this->erro);
+          die();
+        }
+
+        if(empty($newPassword)){
+          $this->erro->setMessage("Nova Senha é Obrigatório!");
+          echo json_encode($this->erro);
+          die();
+        }
+
+        if(empty($confirmPassword)){
+          $this->erro->setMessage("Confirme a Nova Senha é Obrigatório!");
+          echo json_encode($this->erro);
+          die();
+        }
+
+        if($this->userDao->getPassword($id,$password) == false){
+          $this->erro->setMessage("Senha Atual Incorreta!");
+          echo json_encode($this->erro);
+          die();
+        }
+
+        if($newPassword!=$confirmPassword){
+          $this->erro->setMessage("As senhas não conferem!");
+          echo json_encode($this->erro);
+          die();
+        }else{     
+          if($this->userDao->updatePassword($id,$newPassword)){
+            $this->erro->setMessage("Senha Atualizada com Sucesso!");
+            echo json_encode($this->erro);
+          }else{
+			      $this->erro->setMessage("Ocorreu um ao Gravar a Nova Senha, Tente Novamente!");
+            echo json_encode($this->erro);
+             die();
+          }
+        }
+      }catch(Exception $e){
+        return $e->getMessage();
+      }
+    }
+
   }
 
 /*
@@ -239,4 +271,4 @@ class UserController{
 	return;
   }
 */
-}
+

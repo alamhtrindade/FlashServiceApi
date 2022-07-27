@@ -1,13 +1,13 @@
 <?php
 
 require_once('../../Model/LogonDao.php');
+require_once('../../Model/Erro.php');
 
 header("Content-Type:application/json");
 
 class LogonController{
 	
 	public $LogonDao;
-	public $erro;
 
 	public function __construct(){
 		$this->logonDao = new LogonDao();
@@ -26,9 +26,10 @@ class LogonController{
 
       }else{
 
-        $this->erro->setWarning("Usuário ou Senha Incorretos!");
+				$erro = new Erro();
+        $erro->setMessage("Usuário ou Senha Incorretos!");
 
-        echo json_encode($this->erro);
+        echo json_encode($erro);
       }
     }catch(Exception $e){
       return $e->getMessage();

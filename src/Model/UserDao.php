@@ -143,6 +143,22 @@ class UserDao{
     return ($sth->rowCount() > 0)?true:false;
   }
 
+  public function getPassword($id, $newPassword){
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE id = ? AND password = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $id, PDO::PARAM_INT);
+    $sth->bindValue(2, sha1($newPassword), PDO::PARAM_STR);
+
+    $sth->execute();
+
+    return ($sth->rowCount() > 0)?true:false;
+  }
+
 
   public function login($email,$password){
     
