@@ -2,12 +2,9 @@
 
 class Recents{
   public $id;
-  public $name;
-  public $email;
-  public $phone;
-  public $address;
-  public $photo;
-  public $password;
+  public $iduser;
+  public $search;
+  public $datesearch;
   
   public function __construct() { }
   
@@ -18,45 +15,25 @@ class Recents{
     return $this->id;
   }
 
-  public function setName($name){
-    $this->name = $name;
+  public function setIdUser($iduser){
+    $this->iduser = $iduser;
   }
-  public function getName(){
-    return $this->name;
-  }
-
-  public function setEmail($email){
-    $this->email = $email;
-  }
-  public function getEmail(){
-    return $this->email;
+  public function getIdUser(){
+    return $this->iduser;
   }
 
-  public function setPhone($phone){
-    $this->phone = $phone;
+  public function setSearch($search){
+    $this->search = $search;
   }
-  public function getPhone(){
-    return $this->phone;
-  }
-
-  public function setAddress($address){
-    $this->address = $address;
-  }
-  public function getAddress(){
-    return $this->address;
+  public function getSearch(){
+    return $this->search;
   }
 
-  public function setPhoto($photo){
-    $this->photo = $photo;
+  public function setDateSearch($datesearch){
+    $this->datesearch = $datesearch;
   }
-  public function getPhoto(){
-    return $this->photo;
+  public function getDateSearch(){
+    return $this->datesearch;
   }
 
-  public function setPassword($password){
-    $this->password = $password;
-  }
-  public function getPassword(){
-    return $this->password;
-  }
 }

@@ -90,11 +90,15 @@ Remover da Lista de Favoritos -> $Base_Url/favorits/delete/ -> recebe um Json{id
 
 /* ROTAS DE PESQUISAS RECENTES */
 
+Gravar Busca Recente -> $Base_Url/recents/create/ -> recebe um Json{id do usuario e string buscada} e retorna um Json {sucesso ou falha}, pode ser ignorado o retorno.
+
 Listar Recentes -> $Base_Url/recents/list/ -> recebe um Json{id do usuário} e retorna um Json{lista de pesquisas recentes}
 
 Deletar Busca Recente -> $Base_Url/recents/delete/ -> recebe um Json{id da pesquisa recente} e retorna um Json{mensagem de sucesso ou falha}
 
 
+
+falta: PROVIDER - SERVICE - RATING
 
 /* ROTAS DE PESQUISA */
 
