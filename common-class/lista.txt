@@ -16,31 +16,7 @@ Atualizar Senha -> $Base_Url/user/updatepassword/ ->Recebe um Json {id, senha, n
 
 
 
-/* ROTAS DE PESQUISA */
-
-Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço buscado}
-
-
-
-/* ROTAS DE PESQUISAS RECENTES */
-
-Listar Recentes -> $Base_Url/recents/list/ -> recebe um Json{id do usuário} e retorna u Json{lista de pesquisas recentes}
-
-Deletar Busca Recente -> $Base_Url/recents/delete/ -> recebe um Json{id da pesquisa recente} e retorna u Json{mensagem de sucesso ou falha}
-
-
-
-/* ROTAS DE FAVORITOS */
-
-Inserir Novo Favorito -> $Base_Url/favorits/create/ -> recebe um Json{id do usuário e $id prestador de serviço} e retorna u Json{sucesso ou falha}
-
-Listar Favoritos -> $Base_Url/favorits/list/ -> recebe um Json{id do usuário} e retorna u Json{lista de favoritos}
-
-Remover da Lista de Favoritos -> $Base_Url/favorits/delete/ -> recebe um Json{id do favorito} e retorna u Json{mensagem de sucesso ou falha}
-
-
-
-/* LISTA DE OCUPAÇÃO (_occupation) }
+/* LISTA DE OCUPAÇÃO (_occupation) */
 
 A OCUPAÇÃO é uma lista de serviços, como manicure, eletricista, jardineiro, etc. Esta Lista é uma lista do sistema, sendo assim, as rotas que serão utilizadas por hora será somente a list, quando for cadastrar um prestador de serviço. Esta lista será atualizada pelo time de desenvolvimento, conforme cresce a demanda no aplicativo.
 Algumas Ocupações já estão previamente inseridas com seus respectivos identificadores:
@@ -66,7 +42,7 @@ Algumas Ocupações já estão previamente inseridas com seus respectivos identi
   17    -    CUIDADOR DE IDOSOS
   18    -    DEPILADOR
   19    -    DIARISTA
-  20    -    DEPILADORA
+  20    -    <ELIMIDO DEVIDO A DUPLICIDADE>
   21    -    ELETRICISTA RESIDENCIAL
   22    -    ELETRICISTA DE AUTOMÓVEL
   23    -    ENCANADOR
@@ -93,3 +69,33 @@ Algumas Ocupações já estão previamente inseridas com seus respectivos identi
   44    -    SAPATEIRO
   45    -    TECNICO DE INFORMÁTICA
   46    -    VIDRACEIRO
+
+Inserir Nova Ocupação -> $Base_Url/_occupation/create/ -> recebe um Json{nome, chaves de busca} e retorna um Json{sucesso ou falha}
+
+Listar Ocupações -> $Base_Url/_occupation/read/ -> não necessita de parâmetro de entrada e retorna um Json{lista de Ocupações}
+
+Buscar Ocupações -> $Base_Url/_occupation/getoccupation/ -> recebe um Json{chave de busca} e retorna um Json{lista de Ocupações encontradas}
+
+
+
+/* ROTAS DE FAVORITOS */
+
+Inserir Novo Favorito -> $Base_Url/favorits/create/ -> recebe um Json{id do usuário e $id prestador de serviço} e retorna um Json{sucesso ou falha}
+
+Listar Favoritos -> $Base_Url/favorits/list/ -> recebe um Json{id do usuário} e retorna um Json{lista de favoritos}
+
+Remover da Lista de Favoritos -> $Base_Url/favorits/delete/ -> recebe um Json{id do favorito} e retorna um Json{mensagem de sucesso ou falha}
+
+
+
+/* ROTAS DE PESQUISAS RECENTES */
+
+Listar Recentes -> $Base_Url/recents/list/ -> recebe um Json{id do usuário} e retorna um Json{lista de pesquisas recentes}
+
+Deletar Busca Recente -> $Base_Url/recents/delete/ -> recebe um Json{id da pesquisa recente} e retorna um Json{mensagem de sucesso ou falha}
+
+
+
+/* ROTAS DE PESQUISA */
+
+Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço buscado}

@@ -3,6 +3,7 @@
 class Occupation{
   public $id;
   public $name;
+  public $keywords;
 
   
   public function __construct() { }
@@ -19,6 +20,13 @@ class Occupation{
   }
   public function getName(){
     return $this->name;
+  }
+
+  public function setKeywords($keywords){
+    $this->keywords = $keywords;
+  }
+  public function getKeywords(){
+    return $this->keywords;
   }
 
 }

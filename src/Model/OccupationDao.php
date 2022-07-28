@@ -13,11 +13,12 @@ class OccupationDao{
     
     $db = Database::singleton();
 
-    $sql = 'INSERT INTO '. self::_table .' (name) VALUES (?)';
+    $sql = 'INSERT INTO '. self::_table .' (name,keywords) VALUES (?,?)';
     
     $sth = $db->prepare($sql);
 
     $sth->bindValue(1, strtoupper($occupation->getName()), PDO::PARAM_STR);
+    $sth->bindValue(2, strtoupper($occupation->getKeywords()), PDO::PARAM_STR);
    
     return $sth->execute();
 
@@ -41,6 +42,7 @@ class OccupationDao{
 
       $occupation->setId($obj->id);
       $occupation->setName($obj->name);
+      $occupation->setKeywords($obj->keywords);
      
 
       $occupations[] = $occupation;
@@ -56,7 +58,7 @@ class OccupationDao{
     $concB="%'";
     $name = $concA.strtoupper($occupation).$concB;
   
-    $sql = 'SELECT * FROM ' . self::_table . ' WHERE name LIKE '.$name;
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE keywords LIKE '.$name;
 
     $sth = $db->prepare($sql);
 
@@ -70,6 +72,7 @@ class OccupationDao{
 
       $occupation->setId($obj->id);
       $occupation->setName($obj->name);
+      $occupation->setKeywords($obj->keywords);
 
       $occupations[] = $occupation;
     }
