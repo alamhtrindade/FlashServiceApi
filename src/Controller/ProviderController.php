@@ -101,12 +101,28 @@ class ProviderController{
       }
   }
 
-  public function readAction($search){
+  public function searchAction($search){
     try{
       
-      $providers = array('providers' => $this->providerDao->read($search->name),);
+      $providers = array('providers' => $this->providerDao->search($search->name),);
 
       echo json_encode($providers);
+
+    }catch(Exception $e){
+      return $e->getMessage();
+    }
+  }
+
+  public function readAction($id){
+    try{
+      
+      if($provider = $this->providerDao->read($id->id)){
+        echo json_encode($provider);
+      }else{
+        $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
+        echo json_encode($this->erro);
+         die();
+      }
 
     }catch(Exception $e){
       return $e->getMessage();

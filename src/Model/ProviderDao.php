@@ -29,7 +29,7 @@ class ProviderDao{
 
   }
 
-  public function read($name){
+  public function search($name){
 
     $db = Database::singleton();
 
@@ -54,6 +54,34 @@ class ProviderDao{
       $providers[] = $provider;
     }
     return $providers;
+  }
+
+  public function read($id){
+
+    $db = Database::singleton();
+
+    $sql =  'SELECT * FROM '. self::_table .' WHERE id = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $id, PDO::PARAM_STR);
+
+    $sth->execute();
+
+    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $provider = new Provider();
+
+      $provider->setId($obj->id);
+      $provider->setName($obj->name);
+      $provider->setEmail($obj->email);
+      $provider->setPhone($obj->phone);
+      $provider->setPhoto($obj->photo);
+      $provider->setCash($obj->cash);
+
+      return $provider;
+    }
+    return false;
   }
 
   public function update($provider){  
