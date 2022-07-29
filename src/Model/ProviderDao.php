@@ -53,7 +53,7 @@ class ProviderDao{
 
       $providers[] = $provider;
     }
-    return $provider;
+    return $providers;
   }
 
   public function update($provider){  
