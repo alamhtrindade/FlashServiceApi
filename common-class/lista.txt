@@ -97,9 +97,14 @@ Listar Recentes -> $Base_Url/recents/list/ -> recebe um Json{id do usuário} e r
 Deletar Busca Recente -> $Base_Url/recents/delete/ -> recebe um Json{id da pesquisa recente} e retorna um Json{mensagem de sucesso ou falha}
 
 
+/* ROTAS DO PRESTADOR DE SERVIÇO */
+//O prestador de serviço será também um usuário para a outra parte do app, então foi adicionado campos que permita isso//
+
+Criar Novo -> $Base_Url/provider/create/ recebe um Json{Prestador de serviço} e retorna um Json{mensagem sucessou ou falha}
+
+Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço encontrados}
 
 falta: PROVIDER - SERVICE - RATING
 
 /* ROTAS DE PESQUISA */
 
-Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço buscado}

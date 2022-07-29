@@ -5,9 +5,9 @@
   $json = json_decode(file_get_contents('php://input',true));
 
   $controller = 'Provider';
-  $action = 'read';
+  $action = 'update';
 
   $controller = new ProviderController();
-  $controller->readAction($json);
+  $controller->updateAction($json);
 
 ?>
