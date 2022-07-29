@@ -85,4 +85,19 @@ class ProviderDao{
     return $sth->execute();    
   }
 
+  public function getProviderByEmail($email){
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE email = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, trim(strtolower($email)), PDO::PARAM_STR);
+
+    $sth->execute();
+
+    return ($sth->rowCount() > 0)?true:false;
+  }
+
 }
