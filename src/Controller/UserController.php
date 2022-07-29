@@ -80,6 +80,18 @@ class UserController{
       }
   }
 
+  public function readAction($id){
+    try{
+      
+      $user = array('user' => $this->userDao->read($id->id),);
+
+      echo json_encode($user);
+
+    }catch(Exception $e){
+      return $e->getMessage();
+    }
+  }
+
   public function updateAction($json){
     try{
 
