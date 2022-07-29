@@ -5,11 +5,9 @@ class User{
   public $name;
   public $email;
   public $phone;
+  public $address;
   public $photo;
   public $password;
-  public $street;
-  public $district;
-  public $city;
   
   public function __construct() { }
   
@@ -60,26 +58,5 @@ class User{
   }
   public function getPassword(){
     return $this->password;
-  }
-
-  public function setStreet($street){
-    $this->street = $street;
-  }
-  public function getStreet(){
-    return $this->street;
-  }
-
-  public function setDistrict($district){
-    $this->district = $district;
-  }
-  public function getDistrict(){
-    return $this->district;
-  }
-
-  public function setCity($city){
-    $this->city = $city;
-  }
-  public function getCity(){
-    return $this->city;
   }
 }

@@ -99,9 +99,7 @@ class UserController{
       $name = $json->name;
       $email = $json->email;
       $phone = $json->phone;
-      $street = $json->street;
-      $district = $json->district;
-      $city = $json->city;
+      $address = $json->address;
       $photo = $json->photo;
       
       $user = new User();
@@ -110,9 +108,7 @@ class UserController{
       $user->setName($name);
       $user->setEmail($email);
       $user->setPhone($phone);
-      $user->setStreet($street);
-      $user->setDistrict($district);
-      $user->setCity($city);
+      $user->setAddress($address);
       $user->setPhoto($photo);
       
       if($this->userDao->update($user)){

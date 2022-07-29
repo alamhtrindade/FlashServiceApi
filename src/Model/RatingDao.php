@@ -13,18 +13,16 @@ class UserDao{
     
     $db = Database::singleton();
 
-    $sql = 'INSERT INTO '. self::_table .' (name, email, phone, street, district, city, photo, password) VALUES (?,?,?,?,?,?,?,?)';
+    $sql = 'INSERT INTO '. self::_table .' (name, email, phone, address,photo, password) VALUES (?,?,?,?,?,?)';
     
     $sth = $db->prepare($sql);
 
     $sth->bindValue(1, $user->getName(), PDO::PARAM_STR);
     $sth->bindValue(2, strtolower(trim($user->getEmail())), PDO::PARAM_STR);
     $sth->bindValue(3, $user->getPhone(), PDO::PARAM_STR);
-    $sth->bindValue(4, $user->getStreet(), PDO::PARAM_STR);
-    $sth->bindValue(5, $user->getDistrict(), PDO::PARAM_STR);
-    $sth->bindValue(6, $user->getCity(), PDO::PARAM_STR);
-    $sth->bindValue(7, $user->getPhoto(), PDO::PARAM_STR);
-    $sth->bindValue(8, trim (sha1($user->getPassword())), PDO::PARAM_STR);
+    $sth->bindValue(4, $user->getAddress(), PDO::PARAM_STR);
+    $sth->bindValue(5, $user->getPhoto(), PDO::PARAM_STR);
+    $sth->bindValue(6, trim (sha1($user->getPassword())), PDO::PARAM_STR);
     
     return $sth->execute();
 
@@ -50,9 +48,7 @@ class UserDao{
       $user->setName($obj->name);
       $user->setEmail($obj->email);
       $user->setPhone($obj->phone);
-      $user->setStreet($obj->street);
-      $user->setDistrict($obj->district);
-      $user->setCity($obj->city);
+      $user->setAddress($obj->address);
       $user->setPhoto($obj->photo);
       $user->setPassword($obj->password);
 
@@ -65,17 +61,15 @@ class UserDao{
     
     $db = Database::singleton();
 
-    $sql = 'UPDATE '. self::_table .' SET name = ?, phone = ?, street = ?, district = ?, city = ?, photo = ?  WHERE id = ?';
+    $sql = 'UPDATE '. self::_table .' SET name = ?, phone = ?, address = ?, photo = ?  WHERE id = ?';
     
     $sth = $db->prepare($sql);
 
     $sth->bindValue(1, $user->getName(), PDO::PARAM_STR);
     $sth->bindValue(2, $user->getPhone(), PDO::PARAM_STR);
-    $sth->bindValue(3, $user->getStreet(), PDO::PARAM_STR);
-    $sth->bindValue(4, $user->getDistrict(), PDO::PARAM_STR);
-    $sth->bindValue(5, $user->getCity(), PDO::PARAM_STR);
-    $sth->bindValue(6, $user->getPhoto(), PDO::PARAM_STR);
-    $sth->bindValue(7, $user->getId(), PDO::PARAM_INT);
+    $sth->bindValue(3, $user->getAddress(), PDO::PARAM_STR);
+    $sth->bindValue(4, $user->getPhoto(), PDO::PARAM_STR);
+    $sth->bindValue(5, $user->getId(), PDO::PARAM_INT);
     
     return $sth->execute();    
   }
@@ -127,12 +121,8 @@ class UserDao{
       $user->setName($obj->name);
       $user->setEmail($obj->email);
       $user->setPhone($obj->phone);
-      $user->setStreet($obj->street);
-      $user->setDistrict($obj->district);
-      $user->setCity($obj->city);
-      $user->setPhoto($obj->photo);
+      $user->setAddress($obj->address);
       $user->setPassword($obj->password);
-      
       return $user;
     }
     return false;
@@ -189,9 +179,7 @@ class UserDao{
       $user->setName($obj->name);
       $user->setEmail($obj->email);
       $user->setPhone($obj->phone);
-      $user->setStreet($obj->street);
-      $user->setDistrict($obj->district);
-      $user->setCity($obj->city);
+      $user->setAddress($obj->address);
       $user->setPhoto($obj->photo);
       $user->setPassword($obj->password);
       return $user;
