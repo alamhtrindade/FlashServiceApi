@@ -104,7 +104,7 @@ Criar Novo -> $Base_Url/provider/create/ recebe um Json{Prestador de serviço} e
 
 Pesquisar -> $Base_Url/provider/list/ -> recebe um Json{string de busca} e retorna um Json{lista de prestadores do serviço encontrados}
 
-falta: PROVIDER - SERVICE - RATING
+falta: SERVICE - RATING
 
 /* ROTAS DE PESQUISA */
 
