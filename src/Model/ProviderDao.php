@@ -96,7 +96,7 @@ class ProviderDao{
 
     $providers = array();
 
-    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+    while($obj = $sth->fetch(PDO::FETCH_OBJ)){
       
       $provider = new Provider();
 
