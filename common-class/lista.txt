@@ -108,3 +108,11 @@ falta: SERVICE - RATING
 
 /* ROTAS DE PESQUISA */
 
+
+
+validações de serviço:
+
+Verificar se o provider está disponível
+Se a data escolhida é maior que a data atual
+verificar se o horário está disponível
+criar os horários disponíveis

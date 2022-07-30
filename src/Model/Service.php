@@ -1,13 +1,14 @@
 <?php
 
-class User{
+class Service{
   public $id;
-  public $name;
-  public $email;
-  public $phone;
-  public $address;
-  public $photo;
-  public $password;
+  public $iduser;
+  public $idprovider;
+  public $dateservice;
+  public $localservice;
+  public $typeservice;
+  public $description;
+  public $timeservice;
   
   public function __construct() { }
   
@@ -18,45 +19,53 @@ class User{
     return $this->id;
   }
 
-  public function setName($name){
-    $this->name = $name;
+  public function setIdUser($iduser){
+    $this->iduser = $iduser;
   }
-  public function getName(){
-    return $this->name;
-  }
-
-  public function setEmail($email){
-    $this->email = $email;
-  }
-  public function getEmail(){
-    return $this->email;
+  public function getIdUser(){
+    return $this->iduser;
   }
 
-  public function setPhone($phone){
-    $this->phone = $phone;
+  public function setIdProvider($idprovider){
+    $this->idprovider = $idprovider;
   }
-  public function getPhone(){
-    return $this->phone;
-  }
-
-  public function setAddress($address){
-    $this->address = $address;
-  }
-  public function getAddress(){
-    return $this->address;
+  public function getIdProvider(){
+    return $this->idprovider;
   }
 
-  public function setPhoto($photo){
-    $this->photo = $photo;
+  public function setDateService($dateservice){
+    $this->dateservice = $dateservice;
   }
-  public function getPhoto(){
-    return $this->photo;
+  public function getDateService(){
+    return $this->dateservice;
   }
 
-  public function setPassword($password){
-    $this->password = $password;
+  public function setLocalService($localservice){
+    $this->localservice = $localservice;
   }
-  public function getPassword(){
-    return $this->password;
+  public function getLocalService(){
+    return $this->localservice;
   }
+
+  public function setTypeService($typeservice){
+    $this->typeservice = $typeservice;
+  }
+  public function getTypeService(){
+    return $this->typeservice;
+  }
+
+  public function setDescription($description){
+    $this->description = $description;
+  }
+  public function getDescription(){
+    return $this->description;
+  }
+
+  public function setTimeService($timeservice){
+    $this->timeservice = $timeservice;
+  }
+  public function getTimeService(){
+    return $this->timeservice;
+  }
+
 }

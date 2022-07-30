@@ -6,7 +6,7 @@ require_once('../../../Model/Erro.php');
 
 header("Content-Type:application/json");
 
-class UserController{
+class RatingController{
   
   public $userDao;
   public $erro;
