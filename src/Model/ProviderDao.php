@@ -84,6 +84,34 @@ class ProviderDao{
     return false;
   }
 
+  public function getAll(){
+
+    $db = Database::singleton();
+
+    $sql =  'SELECT * FROM '. self::_table ;
+
+    $sth = $db->prepare($sql);
+
+    $sth->execute();
+
+    $providers = array();
+
+    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $provider = new Provider();
+
+      $provider->setId($obj->id);
+      $provider->setName($obj->name);
+      $provider->setEmail($obj->email);
+      $provider->setPhone($obj->phone);
+      $provider->setPhoto($obj->photo);
+      $provider->setCash($obj->cash);
+
+      $providers[] = $provider;
+    }
+    return $providers;
+  }
+
   public function update($provider){  
     
     $db = Database::singleton();

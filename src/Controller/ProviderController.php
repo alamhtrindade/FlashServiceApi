@@ -129,6 +129,18 @@ class ProviderController{
     }
   }
 
+  public function getAllAction($id){
+    try{
+      
+      $providers = array('providers' => $this->providerDao->getAll(),);
+
+      echo json_encode($providers);
+
+    }catch(Exception $e){
+      return $e->getMessage();
+    }
+  }
+
   public function updateAction($json){
     try{
 
