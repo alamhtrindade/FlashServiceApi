@@ -5,6 +5,8 @@ class Favorites{
   public $name;
   public $iduser;
   public $idprovider;
+  public $phone;
+  public $photo;
   
   public function __construct() { }
   
@@ -36,4 +38,17 @@ class Favorites{
     return $this->idprovider;
   }
 
+  public function setPhone($phone){
+    $this->phone = $phone;
+  }
+  public function getPhone(){
+    return $this->phone;
+  }
+
+  public function setPhoto($photo){
+    $this->photo = $photo;
+  }
+  public function getPhoto(){
+    return $this->photo;
+  }
 }

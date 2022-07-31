@@ -28,7 +28,7 @@ class FavoritesDao{
 
     $db = Database::singleton();
 
-    $sql =  'SELECT fav.id, prov.id AS idprovider, prov.name FROM _favorites AS fav INNER JOIN  _provider AS prov ON fav.idprovider = prov.id AND fav.iduser = ? ' ;
+    $sql =  'SELECT fav.id, prov.id AS idprovider, prov.name, prov.phone, prov.photo FROM _favorites AS fav INNER JOIN  _provider AS prov ON fav.idprovider = prov.id AND fav.iduser = ? ' ;
 
     $sth = $db->prepare($sql);
 
@@ -45,6 +45,8 @@ class FavoritesDao{
       $favorites->setId($obj->id);
       $favorites->setName($obj->name);
       $favorites->setIdProvider($obj->idprovider);
+      $favorites->setPhone($obj->phone);
+      $favorites->setPhoto($obj->photo);
 
       $favoritesarray[] = $favorites;
     }
