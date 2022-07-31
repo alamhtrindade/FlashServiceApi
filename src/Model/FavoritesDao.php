@@ -28,11 +28,11 @@ class FavoritesDao{
 
     $db = Database::singleton();
 
-    $sql =  'SELECT fav.id, prov.id AS idprovider, prov.name FROM  _provider AS prov, _favorites AS fav WHERE fav.iduser = ?' ;
+    $sql =  'SELECT fav.id, prov.id AS idprovider, prov.name FROM _favorites AS fav INNER JOIN  _provider AS prov ON fav.idprovider = prov.id AND fav.iduser = ? ' ;
 
     $sth = $db->prepare($sql);
 
-    $sth->bindValue(1, intval($iduser), PDO::PARAM_STR);
+    $sth->bindValue(1,$iduser, PDO::PARAM_STR);
 
     $sth->execute();
 
