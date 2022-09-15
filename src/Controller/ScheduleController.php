@@ -2,6 +2,9 @@
 
 require_once('../../../Model/ScheduleDao.php');
 require_once('../../../Model/Schedule.php');
+require_once('../../../Model/ServiceDao.php');
+require_once('../../../Model/Service.php');
+
 require_once('../../../Model/Erro.php');
 
 header("Content-Type:application/json");
@@ -9,10 +12,12 @@ header("Content-Type:application/json");
 class ScheduleController{
   
   public $scheduleDao;
+  public $serviceDao;
   public $erro;
 
   public function __construct(){
     $this->scheduleDao = new ScheduleDao();
+    $this->serviceDao = new ServiceDao();
     $this->erro = new Erro();
   }
 
@@ -62,19 +67,86 @@ class ScheduleController{
       }
   }
 
-  /*
-  public function readAction($id){
+  
+  public function readAction($json){
     try{
       
-      $service = array('service' => $this->serviceDao->read($id->id),);
+      $schedule = $this->scheduleDao->validaDia($json->idprovider);
+      $validadia = false;
 
-      echo json_encode($service);
+      //PEGAR QUAL DIA DA SEMANA É
+      if(setlocale(LC_TIME, 'pt')) {
+        $dia = utf8_encode(strftime("%A",strtotime($json->date)));
+        
+        //VERIFICA SE O DIA DA SEMANA É VALIDO
+        switch ($dia){
+          case 'segunda-feira':
+            if($schedule->getSegunda()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'terça-feira':
+            if($schedule->getTerca()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'quarta-feira':
+            if($schedule->getQuarta()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'quinta-feira':
+            if($schedule->getQuinta()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'sexta-feira':
+            if($schedule->getSexta()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'sábado':
+            if($schedule->getSabado()=="true"){
+              $validadia = true;  
+            }
+          break;
+          case 'domingo':
+            if($schedule->getDomingo()=="true"){
+              $validadia = true;  
+            }
+          break;
+        }
+        
+        // VERIFICA SE NESTE DIA EXISTE HORARIOS AGENDADOS
+        if($services = $this->serviceDao->check($json->idprovider, $json->date)){
+          foreach($services as $service){
+            echo("Dia ".$service->getDateService()." - ".$service->getTimeService()."\n");
+          }
+        }
 
+        die("Parou");
+        // BUSCA TODOS OS HORARIOS DISPONIVEIS EXCETO OS AGENDADOS
+        
+        // AGORA RETORNA OS HORARIOS DISPONIVEIS
+
+
+        $erro = new Erro();
+
+        if($validadia==true){
+          $this->erro->setMessage("True");
+        }
+        if($validadia==false){
+          $this->erro->setMessage("False");
+        }
+        
+        echo json_encode($this->erro);
+      }
     }catch(Exception $e){
       return $e->getMessage();
     }
   }
 
+  /*
   public function updateAction($json){
     try{
 

@@ -33,6 +33,43 @@ class ScheduleDao{
    
     return $sth->execute();
   }
+
+  public function validaDia($idprovider){
+
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE id_provider = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $idprovider, PDO::PARAM_STR);
+
+    $sth->execute();
+
+    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $schedule = new Schedule();
+
+      $schedule->setId($obj->id);
+      $schedule->setIdProvider($obj->id_provider);
+      $schedule->setDomingo($obj->domingo);
+      $schedule->setSegunda($obj->segunda);
+      $schedule->setTerca($obj->terca);
+      $schedule->setQuarta($obj->quarta);
+      $schedule->setQuinta($obj->quinta);
+      $schedule->setSexta($obj->sexta);
+      $schedule->setSabado($obj->sabado);
+      $schedule->setInicio($obj->inicio);
+      $schedule->setFim($obj->fim);
+      $schedule->setAlmoco($obj->almoco);
+      $schedule->setRetorno($obj->retorno);
+
+      return $schedule;
+    }
+    return false;
+  }
+
+
   /*
   public function read($id){
 

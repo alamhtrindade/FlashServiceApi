@@ -59,6 +59,36 @@ class ServiceDao{
     return false;
   }
 
+  public function check($idprovider,$dateservice){
+
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE idprovider = ? AND dateservice = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $idprovider, PDO::PARAM_STR);
+    $sth->bindValue(2, $dateservice, PDO::PARAM_STR);
+
+    $sth->execute();
+
+    $services = array();
+
+    while($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $service = new Service();
+
+      $service->setId($obj->id);
+      $service->setIdProvider($obj->idprovider);
+      $service->setDateService($obj->dateservice);
+      $service->setTimeService($obj->timeservice);
+
+      $services[] = $service;
+    }
+    return $services;
+  }
+
   public function update($provider){  
     
     $db = Database::singleton();
