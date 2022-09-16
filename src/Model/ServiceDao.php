@@ -86,7 +86,13 @@ class ServiceDao{
 
       $services[] = $service;
     }
-    return $services;
+
+    if($services){
+      return $services;
+    }else{
+      return false;
+    }
+    
   }
 
   public function update($provider){  
