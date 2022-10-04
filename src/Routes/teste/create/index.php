@@ -1,5 +1,5 @@
 <?php
-var_dump(http_response_code(404));
-return var_dump(http_response_code());
+
+return header('HTTP/1.1 202 Acepted');
 
 ?>
