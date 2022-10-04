@@ -724,7 +724,7 @@ class ScheduleController{
        
         }
         
-        return json_encode($disponiveis);
+        echo json_encode($disponiveis);
       }
     }catch(Exception $e){
       return $e->getMessage();
