@@ -13,7 +13,7 @@ class ProviderDao{
     
     $db = Database::singleton();
 
-    $sql = 'INSERT INTO '. self::_table .' (name, email, phone, photo, password, cash, idoccupation) VALUES (?,?,?,?,?,?,?)';
+    $sql = 'INSERT INTO '. self::_table .' (name, email, phone, photo, password, cash, idoccupation,servicesoffered) VALUES (?,?,?,?,?,?,?,?)';
     
     $sth = $db->prepare($sql);
 
@@ -24,6 +24,7 @@ class ProviderDao{
     $sth->bindValue(5, trim (sha1($provider->getPassword())), PDO::PARAM_STR);
     $sth->bindValue(6, $provider->getCash(), PDO::PARAM_STR);
     $sth->bindValue(7, $provider->getIdOccupation(), PDO::PARAM_STR);
+    $sth->bindValue(8,$provider->getServicesOffered(), PDO::PARAM_STR);
     
     return $sth->execute();
 
@@ -50,7 +51,7 @@ class ProviderDao{
       $provider->setEmail($obj->email);
       $provider->setPhone($obj->phone);
       $provider->setPhoto($obj->photo);
-
+      $provider->setServicesOffered($obj->servicesoffered);
       $providers[] = $provider;
     }
     return $providers;
@@ -78,7 +79,8 @@ class ProviderDao{
       $provider->setPhone($obj->phone);
       $provider->setPhoto($obj->photo);
       $provider->setCash($obj->cash);
-
+      $provider->setIdOccupation($obj->idoccupation);
+      $provider->setServicesOffered($obj->servicesoffered);
       return $provider;
     }
     return false;
@@ -106,7 +108,7 @@ class ProviderDao{
       $provider->setPhone($obj->phone);
       $provider->setPhoto($obj->photo);
       $provider->setCash($obj->cash);
-
+      $provider->setServicesOffered($obj->servicesoffered);
       $providers[] = $provider;
     }
     return $providers;

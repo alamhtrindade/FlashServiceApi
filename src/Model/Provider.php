@@ -9,6 +9,7 @@ class Provider{
   public $password;
   public $cash;
   public $idoccupation;
+  public $servicesoffered;
 
     
   public function __construct() { }
@@ -67,6 +68,13 @@ class Provider{
   }
   public function getIdOccupation(){
     return $this->idoccupation;
+  }
+
+  public function setServicesOffered($servicesoffered){
+    $this->servicesoffered = $servicesoffered;
+  }
+  public function getServicesOffered(){
+    return $this->servicesoffered;
   }
 
 }
