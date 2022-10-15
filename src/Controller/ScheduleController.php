@@ -74,11 +74,13 @@ class ScheduleController{
       $schedule = $this->scheduleDao->validaDia($json->idprovider);
       $validadia = false;
       
+
       //PEGAR QUAL DIA DA SEMANA É
       if(setlocale(LC_TIME, 'pt')) {
+
+        die('antes do dia');
         $dia = utf8_encode(strftime("%A",strtotime($json->date)));
         
-      die('Entrou no IF');
         //VERIFICA SE O DIA DA SEMANA É VALIDO
         switch ($dia){
           case 'segunda-feira':
