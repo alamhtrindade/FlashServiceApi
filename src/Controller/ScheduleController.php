@@ -73,7 +73,9 @@ class ScheduleController{
       
       $schedule = $this->scheduleDao->validaDia($json->idprovider);
       $validadia = false;
+      
 
+      die('Chegou Aqui');
       //PEGAR QUAL DIA DA SEMANA É
       if(setlocale(LC_TIME, 'pt')) {
         $dia = utf8_encode(strftime("%A",strtotime($json->date)));
