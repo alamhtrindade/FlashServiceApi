@@ -50,7 +50,13 @@ class ServiceController{
           echo json_encode($this->erro);
           die();
         }
-  
+        
+        if(empty($description)){
+          $this->erro->setMessage("Descrição é Obrigatório!");
+          echo json_encode($this->erro);
+          die();
+        }
+
         $service = new Service();
 
         $service->setIdUser($iduser);
