@@ -74,12 +74,21 @@ class ScheduleController{
       $schedule = $this->scheduleDao->validaDia($json->idprovider);
       $validadia = false;
       
+      $diasdasemana = array (1 => "segunda-Feira",2 => "terça-Feira",3 => "quarta-Feira",4 => "quinta-Feira",5 => "sexta-Feira",6 => "sábado",0 => "domingo");
+
+      $variavel = $json->date;
+
+      $hoje = getdate(strtotime($variavel));
+
+      $dia = $hoje["mday"];
+  
+      $diadasemana = $hoje["wday"];
+      $nomediadasemana = $diasdasemana[$diadasemana];
 
       //PEGAR QUAL DIA DA SEMANA É
-      if(setlocale(LC_TIME, 'pt')) {
+      if(true) {
 
-        die('antes do dia');
-        $dia = utf8_encode(strftime("%A",strtotime($json->date)));
+        $dia = $nomediadasemana;
         
         //VERIFICA SE O DIA DA SEMANA É VALIDO
         switch ($dia){
