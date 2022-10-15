@@ -131,6 +131,18 @@ class ServiceController{
     }
   }
 
+  public function getByUserAction($json){
+    try{
+      
+      $service = array('service' => $this->serviceDao->getByUser($json->iduser),);
+
+      echo json_encode($service);
+
+    }catch(Exception $e){
+      return $e->getMessage();
+    }  
+  }
+
   public function deleteAction($id){
 
     if($this->serviceDao->delete($id->id)){

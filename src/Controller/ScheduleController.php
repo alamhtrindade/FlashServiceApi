@@ -85,6 +85,10 @@ class ScheduleController{
       $diadasemana = $hoje["wday"];
       $nomediadasemana = $diasdasemana[$diadasemana];
 
+
+
+
+
       //PEGAR QUAL DIA DA SEMANA É
       if(true) {
 
@@ -138,6 +142,8 @@ class ScheduleController{
           $fim = $schedule->getFim();
           $almoco = $schedule->getAlmoco();
           $retorno = $schedule->getRetorno();
+
+          
 
           switch($inicio){
             case "00:00":

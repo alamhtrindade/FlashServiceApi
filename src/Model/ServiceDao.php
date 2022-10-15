@@ -112,6 +112,38 @@ class ServiceDao{
     return $sth->execute();    
   }
 
+  public function getByUser($id){
+
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE iduser = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $id, PDO::PARAM_STR);
+
+    $sth->execute();
+
+    $services = array();
+
+    while($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $service = new Service();
+
+      $service->setId($obj->id);
+      $service->setIdUser($obj->iduser);
+      $service->setIdProvider($obj->idprovider);
+      $service->setDateService($obj->dateservice);
+      $service->setTimeService($obj->timeservice);
+      $service->setLocalService($obj->localservice);
+      $service->setTypeService($obj->typeservice);
+      $service->setDescription($obj->description);
+
+      $services[] = $service;
+    }
+    return $services;
+  }
+
   public function delete($id){  
     
     $db = Database::singleton();
