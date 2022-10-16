@@ -59,11 +59,11 @@ class ScheduleController{
             
             $this->erro->setMessage("Horario de Trabalho Inserido com Sucesso!");
             echo json_encode($this->erro);
-            die();
+            return header('HTTP/1.1 200');
           }else{
 			      $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
       }catch(Exception $e){
         return $e->getMessage();
@@ -134,7 +134,7 @@ class ScheduleController{
           $disponiveis[] = $agenda;
         }
         echo json_encode($disponiveis);
-        return;
+        return header('HTTP/1.1 200');
 
       }else{
 
@@ -145,7 +145,7 @@ class ScheduleController{
           
           $this->erro->setMessage("Não é possível Agendar Serviço Para a Data Escolhida!");
           echo json_encode($this->erro);
-
+          return header('HTTP/1.1 400');
         }elseif($verificaData==0){
           
           //NESTA VERIFICAÇÃO O DIA DO AGENDAMENTO É O MESMO DIA ATUAL
@@ -228,7 +228,7 @@ class ScheduleController{
             }
 
             echo(json_encode($disponiveis));
-            return;
+            return header('HTTP/1.1 200');
 
           }else{
             $horarios = array();
@@ -269,7 +269,7 @@ class ScheduleController{
           }
 
           echo json_encode($disponiveis);
-          return;
+          return header('HTTP/1.1 200');
         }
       }
     }catch(Exception $e){

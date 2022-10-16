@@ -24,18 +24,17 @@ class FavoritesController{
         if(empty($iduser)){
           $this->erro->setMessage("Usuário em Branco!");
           echo json_encode($this->erro);
-          return;
+          return header('HTTP/1.1 400');
         }
         if(empty($idprovider)){
           $this->erro->setMessage("Prestador de Serviço em Branco!");
           echo json_encode($this->erro);
-          return;
+          return header('HTTP/1.1 400');
         }
-
         if($this->favoritesDao->verificaFavorito($iduser,$idprovider)==true){
           $this->erro->setMessage("Erro: Já Favoritado!");
           echo json_encode($this->erro);
-          return;
+          return header('HTTP/1.1 400');
         }
 
         $favorites = new Favorites();
@@ -46,9 +45,11 @@ class FavoritesController{
         if($this->favoritesDao->create($favorites)){
           $this->erro->setMessage("Favoritado!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
         }else{
 			    $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 400');
         }
       }catch(Exception $e){
         return $e->getMessage();
@@ -61,6 +62,7 @@ class FavoritesController{
       $favorites = array('favorites' => $this->favoritesDao->read($iduser->iduser),);
 
       echo json_encode($favorites);
+      return header('HTTP/1.1 200');
 
     }catch(Exception $e){
       return $e->getMessage();
@@ -72,9 +74,11 @@ class FavoritesController{
     if($this->favoritesDao->delete($id->id)){
       $this->erro->setMessage("Removido!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
     }else{
       $this->erro->setMessage("Falha ao Remover, Tente Novamente!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 400');
     }
   }
 }

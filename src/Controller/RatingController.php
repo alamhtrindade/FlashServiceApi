@@ -28,13 +28,13 @@ class RatingController{
         if(empty($stars)){
           $this->erro->setMessage("Avalie com Estrelas!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
           
         if(empty($title)){
           $this->erro->setMessage("Título é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
         
         $rating = new Rating();
@@ -48,10 +48,11 @@ class RatingController{
         if($this->ratingDao->create($rating)){
           $this->erro->setMessage("Obrigado pela sua Avaliação!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
         }else{
 			    $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
       }catch(Exception $e){
         return $e->getMessage();
@@ -64,6 +65,7 @@ class RatingController{
       $rating = array('rating' => $this->ratingDao->read($id->id),);
 
       echo json_encode($rating);
+      return header('HTTP/1.1 200');
 
     }catch(Exception $e){
       return $e->getMessage();
@@ -76,7 +78,7 @@ class RatingController{
       $ratings = array('ratings' => $this->ratingDao->getAll($id->id),);
 
       echo json_encode($ratings);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -102,19 +104,19 @@ class RatingController{
         $erro = new Erro();
         $this->erro->setMessage("Obrigado por Atualizar sua Avaliação!");
         echo json_encode($this->erro);
-              
+        return header('HTTP/1.1 200');       
       }else{
         
         $this->erro->setMessage("Ocorreu um Erro Durante a Atualização, Tente Novamente!");
         echo json_encode($this->erro);
-      
+        return header('HTTP/1.1 400');
       }
 	    	
 	  }catch(Exception $e){
         
       $this->erro->setMessage("Ocorreu um Erro Inesperado, Tente Novamente!");
       echo json_encode($this->erro);
-
+      return header('HTTP/1.1 400');
     }
   }
 
@@ -123,9 +125,11 @@ class RatingController{
     if($this->ratingDao->delete($id->id)){
       $this->erro->setMessage("Sua Avaliação foi Removida!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
     }else{
       $this->erro->setMessage("Falha ao Remover, Tente Novamente!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 400');
     }
   }
 }

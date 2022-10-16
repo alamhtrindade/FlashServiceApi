@@ -23,13 +23,14 @@ class LogonController{
         $_SESSION['USER'] = serialize($user);
 
         echo json_encode($user);
-
+				return header('HTTP/1.1 200');
       }else{
 
 				$erro = new Erro();
         $erro->setMessage("Usuário ou Senha Incorretos!");
 
         echo json_encode($erro);
+				return header('HTTP/1.1 400');
       }
     }catch(Exception $e){
       return $e->getMessage();

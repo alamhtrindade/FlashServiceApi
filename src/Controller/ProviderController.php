@@ -47,49 +47,49 @@ class ProviderController{
         if(empty($name)){
           $this->erro->setMessage("Nome é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
           
         if(empty($email)){
           $this->erro->setMessage("Email é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($phone)){
           $this->erro->setMessage("Telefone é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($photo)){
           $this->erro->setMessage("Foto é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
                 
         if(empty($password)){
           $this->erro->setMessage("Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($confirmPassword)){
           $this->erro->setMessage("Confirme a Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($this->providerDao->getproviderByEmail($email)){
           $this->erro->setMessage("Email já cadastrado!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($password!=$confirmPassword){
           $this->erro->setMessage("As senhas não conferem!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }else{
           
           $provider = new Provider();
@@ -126,15 +126,16 @@ class ProviderController{
             if($this->scheduleDao->create($schedule)){
               $this->erro->setMessage("Prestador de Serviço Cadastrado com Sucesso!");
               echo json_encode($this->erro);
+              return header('HTTP/1.1 200');
             }else{
               $this->erro->setMessage("Houve um Problema ao Adicionar o Horário de Trabalho!");
               echo json_encode($this->erro);
+              return header('HTTP/1.1 400');
             }
-            die();
           }else{
 			      $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
         }
       }catch(Exception $e){
@@ -148,7 +149,7 @@ class ProviderController{
       $providers = array('providers' => $this->providerDao->search($search->name),);
 
       echo json_encode($providers);
-      return;
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -159,11 +160,11 @@ class ProviderController{
       
       if($provider = $this->providerDao->read($id->id)){
         echo json_encode($provider);
-        return;
+        return header('HTTP/1.1 200');
       }else{
         $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
         echo json_encode($this->erro);
-         die();
+        return header('HTTP/1.1 400');
       }
 
     }catch(Exception $e){
@@ -177,7 +178,7 @@ class ProviderController{
       $providers = array('providers' => $this->providerDao->getAll(),);
 
       echo json_encode($providers);
-      return;
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -203,19 +204,19 @@ class ProviderController{
         $erro = new Erro();
         $this->erro->setMessage("Cadastro Atualizado!");
         echo json_encode($this->erro);
-              
+        return header('HTTP/1.1 200');       
       }else{
         
         $this->erro->setMessage("Ocorreu um Erro Durante a Atualização, Tente Novamente!");
         echo json_encode($this->erro);
-      
+        return header('HTTP/1.1 400');
       }
 	    	
 	  }catch(Exception $e){
         
       $this->erro->setMessage("Ocorreu um Erro Inesperado, Tente Novamente!");
       echo json_encode($this->erro);
-
+      return header('HTTP/1.1 400');
     }
   }
   
@@ -229,39 +230,40 @@ class ProviderController{
         if(empty($password)){
           $this->erro->setMessage("Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($newPassword)){
           $this->erro->setMessage("Nova Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($confirmPassword)){
           $this->erro->setMessage("Confirme a Nova Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($this->providerDao->getPassword($id,$password) == false){
           $this->erro->setMessage("Senha Atual Incorreta!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($newPassword!=$confirmPassword){
           $this->erro->setMessage("As senhas não conferem!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }else{     
           if($this->providerDao->updatePassword($id,$newPassword)){
             $this->erro->setMessage("Senha Atualizada com Sucesso!");
             echo json_encode($this->erro);
+            return header('HTTP/1.1 200');
           }else{
 			      $this->erro->setMessage("Ocorreu um ao Gravar a Nova Senha, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
         }
       }catch(Exception $e){
@@ -269,23 +271,8 @@ class ProviderController{
       }
     }
 
-    public function deleteAction()
-    {
-  
-      $message = Message::singleton();
-  
-      $id =  array_key_exists ('id', $_GET) ? $_GET['id'] : '';
-  
-      if($this->providerDao->delete($id)){
-          $message->addMessage('Usuário excluído com sucesso');
-      $viewModel = array();
-      $viewModel = array(
-          'checkins' => $this->checkinDao->getAll(),
-        );
-  
-      $this->setRoute($this->view->getIndexRoute());
-      }
-      $this->showView($viewModel);
+    public function deleteAction(){
+
   
       return;
     }

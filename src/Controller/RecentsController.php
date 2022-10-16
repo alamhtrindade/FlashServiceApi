@@ -32,11 +32,11 @@ class RecentsController{
         if($this->recentsDao->create($recent)){
           $this->erro->setMessage("Sucess!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 200');
         }else{
 			    $this->erro->setMessage("Erro!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
       }catch(Exception $e){
         return $e->getMessage();
@@ -49,7 +49,7 @@ class RecentsController{
       $recents = array('recents' => $this->recentsDao->read($iduser->iduser),);
 
       echo json_encode($recents);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -60,9 +60,11 @@ class RecentsController{
     if($this->recentsDao->delete($id->id)){
       $this->erro->setMessage("Removido!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
     }else{
       $this->erro->setMessage("Falha ao Remover, Tente Novamente!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 400');
     }
   }
 }

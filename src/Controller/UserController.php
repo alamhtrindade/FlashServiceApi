@@ -26,37 +26,37 @@ class UserController{
         if(empty($name)){
           $this->erro->setMessage("Nome é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
           
         if(empty($email)){
           $this->erro->setMessage("Email é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
         
         if(empty($password)){
           $this->erro->setMessage("Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($confirmPassword)){
           $this->erro->setMessage("Confirme a Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($this->userDao->getUserByEmail($email)){
           $this->erro->setMessage("Email já cadastrado!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($password!=$confirmPassword){
           $this->erro->setMessage("As senhas não conferem!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }else{
           
           $user = new User();
@@ -68,11 +68,11 @@ class UserController{
           if($this->userDao->create($user)){
             $this->erro->setMessage("Usuário Cadastrado com Sucesso!");
             echo json_encode($this->erro);
-            die();
+            return header('HTTP/1.1 200');
           }else{
 			      $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
         }
       }catch(Exception $e){
@@ -86,7 +86,7 @@ class UserController{
       $user = array('user' => $this->userDao->read($id->id),);
 
       echo json_encode($user);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -120,20 +120,20 @@ class UserController{
         $erro = new Erro();
         $this->erro->setMessage("Cadastro Atualizado!");
         echo json_encode($this->erro);
-              
+        return header('HTTP/1.1 200');      
       }else{
         
         $this->erro->setMessage("Ocorreu um Erro Durante a Atualização, Tente Novamente!");
         echo json_encode($this->erro);
-      
+        return header('HTTP/1.1 400');
       }
 	    	
 	  }catch(Exception $e){
         
       $this->erro->setMessage("Ocorreu um Erro Inesperado, Tente Novamente!");
       echo json_encode($this->erro);
-
-    }
+      return header('HTTP/1.1 400');
+    } 
   }
   
   public function updatePasswordAction($json){
@@ -146,39 +146,40 @@ class UserController{
         if(empty($password)){
           $this->erro->setMessage("Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($newPassword)){
           $this->erro->setMessage("Nova Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($confirmPassword)){
           $this->erro->setMessage("Confirme a Nova Senha é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($this->userDao->getPassword($id,$password) == false){
           $this->erro->setMessage("Senha Atual Incorreta!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if($newPassword!=$confirmPassword){
           $this->erro->setMessage("As senhas não conferem!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }else{     
           if($this->userDao->updatePassword($id,$newPassword)){
             $this->erro->setMessage("Senha Atualizada com Sucesso!");
             echo json_encode($this->erro);
+            return header('HTTP/1.1 200');
           }else{
 			      $this->erro->setMessage("Ocorreu um ao Gravar a Nova Senha, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
         }
       }catch(Exception $e){

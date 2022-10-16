@@ -30,31 +30,31 @@ class ServiceController{
         if(empty($dateservice)){
           $this->erro->setMessage("Data é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
           
         if(empty($timeservice)){
           $this->erro->setMessage("Hora é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
         
         if(empty($localservice)){
           $this->erro->setMessage("Local é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         if(empty($typeservice)){
           $this->erro->setMessage("Tipo do Serviço é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
         
         if(empty($description)){
           $this->erro->setMessage("Descrição é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }
 
         $service = new Service();
@@ -70,11 +70,11 @@ class ServiceController{
           if($this->serviceDao->create($service)){
             $this->erro->setMessage("Serviço Agendado com Sucesso!");
             echo json_encode($this->erro);
-            die();
+            return header('HTTP/1.1 200');
           }else{
 			      $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
-             die();
+            return header('HTTP/1.1 400');
           }
       }catch(Exception $e){
         return $e->getMessage();
@@ -87,7 +87,7 @@ class ServiceController{
       $service = array('service' => $this->serviceDao->read($id->id),);
 
       echo json_encode($service);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
@@ -115,19 +115,19 @@ class ServiceController{
         $erro = new Erro();
         $this->erro->setMessage("Serviço Agendado foi Atualizado!");
         echo json_encode($this->erro);
-              
+        return header('HTTP/1.1 200');      
       }else{
         
         $this->erro->setMessage("Ocorreu um Erro Durante a Atualização, Tente Novamente!");
         echo json_encode($this->erro);
-      
+        return header('HTTP/1.1 400');
       }
 	    	
 	  }catch(Exception $e){
         
       $this->erro->setMessage("Ocorreu um Erro Inesperado, Tente Novamente!");
       echo json_encode($this->erro);
-
+      return header('HTTP/1.1 400');
     }
   }
 
@@ -137,7 +137,7 @@ class ServiceController{
       $service = array('service' => $this->serviceDao->getByUser($json->iduser),);
 
       echo json_encode($service);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }  
@@ -148,9 +148,11 @@ class ServiceController{
     if($this->serviceDao->delete($id->id)){
       $this->erro->setMessage("Removido!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 200');
     }else{
       $this->erro->setMessage("Falha ao Remover, Tente Novamente!");
           echo json_encode($this->erro);
+          return header('HTTP/1.1 400');
     }
   }
 }

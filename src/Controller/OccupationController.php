@@ -24,7 +24,7 @@ class OccupationController{
         if(empty($name)){
           $this->erro->setMessage("Nome é Obrigatório!");
           echo json_encode($this->erro);
-          die();
+          return header('HTTP/1.1 400');
         }else{
           $occupation = new Occupation();
 
@@ -33,10 +33,11 @@ class OccupationController{
           if($this->occupationDao->create($occupation)){
             $this->erro->setMessage("Nova Ocupação Cadastrada com Sucesso!");
             echo json_encode($this->erro);
+            return header('HTTP/1.1 200');
           }else{
             $this->erro->setMessage("Ocorreu um Erro, Tente Novamente!");
             echo json_encode($this->erro);
-            die();
+            return header('HTTP/1.1 400');
           }
         } 
       }catch(Exception $e){
@@ -50,6 +51,7 @@ class OccupationController{
       $occupations = array('occupations' => $this->occupationDao->read(),);
 
       echo json_encode($occupations);
+      return header('HTTP/1.1 200');
 
     }catch(Exception $e){
       return $e->getMessage();
@@ -63,7 +65,7 @@ class OccupationController{
       $occupations = array('occupations' => $this->occupationDao->getOccupation($json->name),);
 
       echo json_encode($occupations);
-
+      return header('HTTP/1.1 200');
     }catch(Exception $e){
       return $e->getMessage();
     }
