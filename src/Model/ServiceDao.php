@@ -116,7 +116,8 @@ class ServiceDao{
 
     $db = Database::singleton();
 
-    $sql = 'SELECT * FROM ' . self::_table . ' WHERE iduser = ?';
+    $sql = 'SELECT serv.id, serv.iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    FROM  _service AS serv INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer) WHERE serv.iduser=?' ;
 
     $sth = $db->prepare($sql);
 
