@@ -34,7 +34,8 @@ class ProviderDao{
 
     $db = Database::singleton();
 
-    $sql =  "SELECT prov.id, prov.name, prov.email, prov.phone, prov.photo FROM  _provider AS prov INNER JOIN _occupation as occup ON occup.id = prov.idoccupation AND occup.keywords LIKE '%".strtoupper($name)."%'";
+    $sql =  "SELECT prov.id, prov.name, prov.email, prov.phone, prov.photo, sch.inicio, sch.fim
+     FROM  _provider AS prov INNER JOIN _schedule as sch ON sch.id_provider=prov.id INNER JOIN _occupation as occup ON occup.id = prov.idoccupation AND occup.keywords LIKE '%".strtoupper($name)."%'";
 
     $sth = $db->prepare($sql);
 
@@ -51,7 +52,8 @@ class ProviderDao{
       $provider->setEmail($obj->email);
       $provider->setPhone($obj->phone);
       $provider->setPhoto($obj->photo);
-      $provider->setServicesOffered($obj->servicesoffered);
+      $provider->setInicio($obj->inicio);
+      $provider->setFim($obj->fim);
       $providers[] = $provider;
     }
     return $providers;
@@ -90,7 +92,8 @@ class ProviderDao{
 
     $db = Database::singleton();
 
-    $sql =  'SELECT * FROM '. self::_table ;
+    $sql =  'SELECT prov.id, prov.name, prov.email, prov.phone, prov.photo, prov.cash, prov.servicesoffered, sch.inicio, sch.fim FROM  _provider AS prov
+    INNER JOIN _schedule as sch ON sch.id_provider=prov.id';
 
     $sth = $db->prepare($sql);
 
@@ -109,6 +112,8 @@ class ProviderDao{
       $provider->setPhoto($obj->photo);
       $provider->setCash($obj->cash);
       $provider->setServicesOffered($obj->servicesoffered);
+      $provider->setInicio($obj->inicio);
+      $provider->setFim($obj->fim);
       $providers[] = $provider;
     }
     return $providers;
@@ -156,6 +161,33 @@ class ProviderDao{
     $sth->execute();
 
     return ($sth->rowCount() > 0)?true:false;
+  }
+
+  public function getLast(){
+
+    $db = Database::singleton();
+
+    $sql =  'SELECT * FROM '. self::_table .' ORDER BY id DESC LIMIT 1';
+
+    $sth = $db->prepare($sql);
+
+    $sth->execute();
+
+    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $provider = new Provider();
+
+      $provider->setId($obj->id);
+      $provider->setName($obj->name);
+      $provider->setEmail($obj->email);
+      $provider->setPhone($obj->phone);
+      $provider->setPhoto($obj->photo);
+      $provider->setCash($obj->cash);
+      $provider->setIdOccupation($obj->idoccupation);
+      $provider->setServicesOffered($obj->servicesoffered);
+      return $provider;
+    }
+    return false;
   }
 
 }

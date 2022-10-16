@@ -10,6 +10,8 @@ class Provider{
   public $cash;
   public $idoccupation;
   public $servicesoffered;
+  public $inicio;
+  public $fim;
 
     
   public function __construct() { }
@@ -75,6 +77,20 @@ class Provider{
   }
   public function getServicesOffered(){
     return $this->servicesoffered;
+  }
+
+  public function setInicio($inicio){
+    $this->inicio = $inicio;
+  }
+  public function getInicio(){
+    return $this->inicio;
+  }
+
+  public function setFim($fim){
+    $this->fim = $fim;
+  }
+  public function getFim(){
+    return $this->fim;
   }
 
 }
