@@ -21,6 +21,23 @@ class FavoritesController{
         $iduser = $json->iduser;
         $idprovider = $json->idprovider;
         
+        if(empty($iduser)){
+          $this->erro->setMessage("Usuário em Branco!");
+          echo json_encode($this->erro);
+          return;
+        }
+        if(empty($idprovider)){
+          $this->erro->setMessage("Prestador de Serviço em Branco!");
+          echo json_encode($this->erro);
+          return;
+        }
+
+        if($this->favoritesDao->verificaFavorito($iduser,$idprovider)==true){
+          $this->erro->setMessage("Erro: Já Favoritado!");
+          echo json_encode($this->erro);
+          return;
+        }
+
         $favorites = new Favorites();
 
         $favorites->setIdUser($iduser);

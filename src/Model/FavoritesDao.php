@@ -66,4 +66,20 @@ class FavoritesDao{
     return $sth->execute();    
   }
 
+  public function verificaFavorito($iduser,$idprovider){
+    
+    $db = Database::singleton();
+
+    $sql =  'SELECT * FROM _favorites WHERE iduser=? AND idprovider=?';
+    
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, $iduser, PDO::PARAM_INT);
+    $sth->bindValue(2, $idprovider, PDO::PARAM_INT);
+    
+    $sth->execute();
+
+    return ($sth->rowCount() > 0)?true:false;
+  }
+
 }
