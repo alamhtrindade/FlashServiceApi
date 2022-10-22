@@ -39,6 +39,7 @@ class ProviderController{
         $quinta = $json->quinta;
         $sexta = $json->sexta;
         $sabado = $json->sabado;
+
         $inicio = $json->inicio;
         $fim = $json->fim;
         $almoco = $json->almoco;
@@ -269,6 +270,36 @@ class ProviderController{
       }catch(Exception $e){
         return $e->getMessage();
       }
+    }
+
+    public function loginAction($json){
+      try{
+
+        if($provider = $this->providerDao->login($json->email,$json->password)){
+          
+          
+          $_SESSION['USER'] = serialize($provider);
+  
+          echo json_encode($provider);
+          return header('HTTP/1.1 200');
+
+        }else{
+  
+          $erro = new Erro();
+          $erro->setMessage("Usuário ou Senha Incorretos!");
+  
+          echo json_encode($erro);
+          return header('HTTP/1.1 400');
+        }
+        
+      }catch(Exception $e){
+
+        $erro = new Erro();
+        $erro->setMessage($e->getMessage());
+
+        echo json_encode($erro);
+        return header('HTTP/1.1 400');
+      }  
     }
 
     public function deleteAction(){

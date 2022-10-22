@@ -171,8 +171,7 @@ class ServiceController{
         date_default_timezone_set('America/Campo_Grande');
         
         $hoje =  date('d/m/Y');
-        $hoje = str_replace('-','/',$hoje);
-
+        $hoje = str_replace('/','-',$hoje);
         $service = array('service' => $this->serviceDao->getServiceByProvider($json->idprovider,$hoje),);
 
         echo json_encode($service);
@@ -187,6 +186,34 @@ class ServiceController{
     }
 
   }
+
+  public function getServiceProvider($json){
+    
+    if(empty($json->idprovider)){
+      
+      $this->erro->setMessage("A Identificação do Prestador de Serviço Não Pode Ser Vazio!");
+      echo json_encode($this->erro);
+      return header('HTTP/1.1 400');
+
+    }else{
+      
+      try{
+
+        $service = array('service' => $this->serviceDao->getServiceProvider($json->idprovider),);
+
+        echo json_encode($service);
+        return header('HTTP/1.1 200');
+
+      }catch(Exception $e){
+        $this->erro->setMessage($e->getMessage());
+        echo json_encode($this->erro);
+        return header('HTTP/1.1 400');
+      }
+
+    }
+
+  }
+
 }
   
  

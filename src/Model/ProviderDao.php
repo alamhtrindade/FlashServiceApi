@@ -190,4 +190,37 @@ class ProviderDao{
     return false;
   }
 
+  public function login($email,$password){
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT * FROM ' . self::_table . ' WHERE email = ? AND password = ?';
+
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, trim(strtolower($email)), PDO::PARAM_STR);
+	  $sth->bindValue(2, trim(sha1($password)), PDO::PARAM_STR);
+	
+    $sth->execute();
+
+    if($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $provider = new Provider();
+
+      $provider->setId($obj->id);
+      $provider->setName($obj->name);
+      $provider->setEmail($obj->email);
+      $provider->setPhone($obj->phone);
+      $provider->setPhoto($obj->photo);
+      $provider->setCash($obj->cash);
+      $provider->setIdOccupation($obj->idoccupation);
+      $provider->setServicesOffered($obj->servicesoffered);
+
+      return $provider;
+
+    }
+    return false;
+
+  }
+
 }

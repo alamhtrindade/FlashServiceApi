@@ -162,12 +162,14 @@ class ServiceDao{
     
     $db = Database::singleton();
 
-    $sql = 'SELECT serv.id, usr.name, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
     FROM  _service AS serv 
     INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer)
     INNER JOIN _user as usr ON CAST(serv.iduser AS integer) = usr.id
     WHERE prov.id= ? AND serv.dateservice= ?
     ORDER BY serv.timeservice';
+
+    
     $sth = $db->prepare($sql);
     $sth->bindValue(1, $idprovider, PDO::PARAM_STR);
     $sth->bindValue(2, $date, PDO::PARAM_STR);
@@ -195,4 +197,41 @@ class ServiceDao{
 
   }
 
+  public function getServiceProvider($idprovider){
+    
+    $db = Database::singleton();
+
+    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    FROM  _service AS serv 
+    INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer)
+    INNER JOIN _user as usr ON CAST(serv.iduser AS integer) = usr.id
+    WHERE prov.id= ?
+    ORDER BY serv.timeservice';
+
+    
+    $sth = $db->prepare($sql);
+    $sth->bindValue(1, $idprovider, PDO::PARAM_STR);
+
+    $sth->execute();
+
+    $services = array();
+
+    while($obj = $sth->fetch(PDO::FETCH_OBJ)){
+      
+      $service = new Service();
+
+      $service->setId($obj->id);
+      $service->setIdUser($obj->iduser);
+      $service->setIdProvider($obj->idprovider);
+      $service->setDateService($obj->dateservice);
+      $service->setTimeService($obj->timeservice);
+      $service->setLocalService($obj->localservice);
+      $service->setTypeService($obj->typeservice);
+      $service->setDescription($obj->description);
+
+      $services[] = $service;
+    }
+    return $services;
+
+  }
 }
