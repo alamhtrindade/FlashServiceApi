@@ -5,9 +5,9 @@
   $json = json_decode(file_get_contents('php://input',true));
 
   $controller = 'Service';
-  $action = 'getServiceProvider';
+  $action = 'getServiceByProvider';
 
   $controller = new ServiceController();
-  $controller->getServiceProvider($json);
+  $controller->getServiceByProvider($json);
 
 ?>
