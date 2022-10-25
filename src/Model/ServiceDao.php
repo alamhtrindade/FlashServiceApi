@@ -252,18 +252,19 @@ class ServiceDao{
   }
 
 
-  public function close($value,$enddate,$id){  
+  public function close($value,$enddate,$description,$id){  
     
     $db = Database::singleton();
 
-    $sql = 'UPDATE '. self::_table .' SET isend = ?, value = ?, enddate = ?  WHERE id = ?';
+    $sql = 'UPDATE '. self::_table .' SET isend = ?, value = ?, enddate = ?, description = ? WHERE id = ?';
     
     $sth = $db->prepare($sql);
 
     $sth->bindValue(1, true, PDO::PARAM_BOOL);
     $sth->bindValue(2, $value, PDO::PARAM_STR);
     $sth->bindValue(3, $enddate, PDO::PARAM_STR);
-    $sth->bindValue(4, $id, PDO::PARAM_INT);
+    $sth->bindValue(4, $description, PDO::PARAM_STR);
+    $sth->bindValue(5, $id, PDO::PARAM_INT);
     
     return $sth->execute();    
   }
