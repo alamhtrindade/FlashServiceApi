@@ -276,10 +276,7 @@ class ProviderController{
       try{
 
         if($provider = $this->providerDao->login($json->email,$json->password)){
-          
-          
-          $_SESSION['USER'] = serialize($provider);
-  
+            
           echo json_encode($provider);
           return header('HTTP/1.1 200');
 
