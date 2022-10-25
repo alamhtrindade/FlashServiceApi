@@ -252,10 +252,11 @@ class ServiceController{
           
         $hoje =  date('d/m/Y');
         $hoje = str_replace('/','-',$hoje);
-        $service = array('service' => $this->serviceDao->close($json->value,$hoje, $json->id),);
+
+        $service = array('service' => $this->serviceDao->close($json->value,$hoje, $json->description, $json->id),);
 
         $this->erro->setMessage("Serviço Finalizado!");
-      echo json_encode($this->erro);
+        echo json_encode($this->erro);
         return header('HTTP/1.1 200');
 
       }catch(Exception $e){
