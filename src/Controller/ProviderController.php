@@ -273,6 +273,7 @@ class ProviderController{
     }
 
     public function loginAction($json){
+      unset($_SESSION['USER']);
       try{
 
         if($provider = $this->providerDao->login($json->email,$json->password)){

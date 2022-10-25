@@ -14,7 +14,7 @@ class LogonController{
 	}
 
 	public function loginAction($json){
-
+		unset($_SESSION['USER']);
     try{
 
       if($user = $this->logonDao->login($json->email,$json->password)){
