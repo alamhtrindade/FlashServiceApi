@@ -14,11 +14,11 @@ class LogonController{
 	}
 
 	public function loginAction($json){
-		unset($_SESSION['USER']);
+		
     try{
 
       if($user = $this->logonDao->login($json->email,$json->password)){
-        
+        $_SESSION[$user->getId()] = serialize($user);
         echo json_encode($user);
 				return header('HTTP/1.1 200');
       }else{

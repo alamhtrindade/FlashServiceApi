@@ -29,9 +29,10 @@ class LogonDao{
       $user->setName($obj->name);
       $user->setEmail($obj->email);
       $user->setPhone($obj->phone);
-      $user->setAddress($obj->address);
       $user->setPhoto($obj->photo);
-      $user->setPassword($obj->password);
+      $user->setStreet($obj->street);
+      $user->setDistrict($obj->district);
+      $user->setCity($obj->city);
       return $user;
     }
     return false;
