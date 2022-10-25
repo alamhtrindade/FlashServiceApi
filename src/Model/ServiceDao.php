@@ -13,7 +13,7 @@ class ServiceDao{
     
     $db = Database::singleton();
 
-    $sql = 'INSERT INTO '. self::_table .' (iduser, idprovider, dateservice, timeservice, localservice, typeservice, description) VALUES (?,?,?,?,?,?,?)';
+    $sql = 'INSERT INTO '. self::_table .' (iduser, idprovider, dateservice, timeservice, localservice, typeservice, description,isend,value) VALUES (?,?,?,?,?,?,?,?,?)';
     
     $sth = $db->prepare($sql);
 
@@ -24,6 +24,8 @@ class ServiceDao{
     $sth->bindValue(5, $provider->getLocalService(), PDO::PARAM_STR);
     $sth->bindValue(6, $provider->getTypeService(), PDO::PARAM_STR);
     $sth->bindValue(7, $provider->getDescription(), PDO::PARAM_STR);
+    $sth->bindValue(8, false, PDO::PARAM_BOOL);
+    $sth->bindValue(9, 0 , PDO::PARAM_STR);
     
     return $sth->execute();
 
@@ -53,6 +55,8 @@ class ServiceDao{
       $service->setLocalService($obj->localservice);
       $service->setTypeService($obj->typeservice);
       $service->setDescription($obj->description);
+      $service->setIsEnd($obj->isend);
+      $service->setValue($obj->value);
 
       return $service;
     }
@@ -116,7 +120,7 @@ class ServiceDao{
 
     $db = Database::singleton();
 
-    $sql = 'SELECT serv.id, serv.iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    $sql = 'SELECT serv.id, serv.iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice,serv.isend,serv.value
     FROM  _service AS serv INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer) WHERE serv.iduser=?' ;
 
     $sth = $db->prepare($sql);
@@ -129,18 +133,22 @@ class ServiceDao{
 
     while($obj = $sth->fetch(PDO::FETCH_OBJ)){
       
-      $service = new Service();
+      if($obj->isend == false){
+        $service = new Service();
 
-      $service->setId($obj->id);
-      $service->setIdUser($obj->iduser);
-      $service->setIdProvider($obj->idprovider);
-      $service->setDateService($obj->dateservice);
-      $service->setTimeService($obj->timeservice);
-      $service->setLocalService($obj->localservice);
-      $service->setTypeService($obj->typeservice);
-      $service->setDescription($obj->description);
+        $service->setId($obj->id);
+        $service->setIdUser($obj->iduser);
+        $service->setIdProvider($obj->idprovider);
+        $service->setDateService($obj->dateservice);
+        $service->setTimeService($obj->timeservice);
+        $service->setLocalService($obj->localservice);
+        $service->setTypeService($obj->typeservice);
+        $service->setDescription($obj->description);
+        $service->setIsEnd($obj->isend);
+        $service->setValue($obj->value);
 
-      $services[] = $service;
+        $services[] = $service;
+      }      
     }
     return $services;
   }
@@ -162,7 +170,7 @@ class ServiceDao{
     
     $db = Database::singleton();
 
-    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice,serv.isend,serv.value
     FROM  _service AS serv 
     INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer)
     INNER JOIN _user as usr ON CAST(serv.iduser AS integer) = usr.id
@@ -180,18 +188,23 @@ class ServiceDao{
 
     while($obj = $sth->fetch(PDO::FETCH_OBJ)){
       
-      $service = new Service();
+      if( ($obj->isend) == false){
 
-      $service->setId($obj->id);
-      $service->setIdUser($obj->iduser);
-      $service->setIdProvider($obj->idprovider);
-      $service->setDateService($obj->dateservice);
-      $service->setTimeService($obj->timeservice);
-      $service->setLocalService($obj->localservice);
-      $service->setTypeService($obj->typeservice);
-      $service->setDescription($obj->description);
+        $service = new Service();
 
-      $services[] = $service;
+        $service->setId($obj->id);
+        $service->setIdUser($obj->iduser);
+        $service->setIdProvider($obj->idprovider);
+        $service->setDateService($obj->dateservice);
+        $service->setTimeService($obj->timeservice);
+        $service->setLocalService($obj->localservice);
+        $service->setTypeService($obj->typeservice);
+        $service->setDescription($obj->description);
+        $service->setIsEnd($obj->isend);
+        $service->setValue($obj->value);
+
+        $services[] = $service;
+      }
     }
     return $services;
 
@@ -201,7 +214,7 @@ class ServiceDao{
     
     $db = Database::singleton();
 
-    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice
+    $sql = 'SELECT serv.id, usr.name iduser, prov.name idprovider, serv.dateservice, serv.localservice, serv.typeservice, serv.description, serv.timeservice,serv.isend,serv.value
     FROM  _service AS serv 
     INNER JOIN _provider as prov ON prov.id = CAST(serv.idprovider AS integer)
     INNER JOIN _user as usr ON CAST(serv.iduser AS integer) = usr.id
@@ -217,21 +230,41 @@ class ServiceDao{
     $services = array();
 
     while($obj = $sth->fetch(PDO::FETCH_OBJ)){
-      
-      $service = new Service();
+      if($obj->isend == false){
+        $service = new Service();
 
-      $service->setId($obj->id);
-      $service->setIdUser($obj->iduser);
-      $service->setIdProvider($obj->idprovider);
-      $service->setDateService($obj->dateservice);
-      $service->setTimeService($obj->timeservice);
-      $service->setLocalService($obj->localservice);
-      $service->setTypeService($obj->typeservice);
-      $service->setDescription($obj->description);
+        $service->setId($obj->id);
+        $service->setIdUser($obj->iduser);
+        $service->setIdProvider($obj->idprovider);
+        $service->setDateService($obj->dateservice);
+        $service->setTimeService($obj->timeservice);
+        $service->setLocalService($obj->localservice);
+        $service->setTypeService($obj->typeservice);
+        $service->setDescription($obj->description);
+        $service->setIsEnd($obj->isend);
+        $service->setValue($obj->value);
 
-      $services[] = $service;
+        $services[] = $service;
+      }
     }
     return $services;
 
+  }
+
+
+  public function close($value,$enddate,$id){  
+    
+    $db = Database::singleton();
+
+    $sql = 'UPDATE '. self::_table .' SET isend = ?, value = ?, enddate = ?  WHERE id = ?';
+    
+    $sth = $db->prepare($sql);
+
+    $sth->bindValue(1, true, PDO::PARAM_BOOL);
+    $sth->bindValue(2, $value, PDO::PARAM_STR);
+    $sth->bindValue(3, $enddate, PDO::PARAM_STR);
+    $sth->bindValue(4, $id, PDO::PARAM_INT);
+    
+    return $sth->execute();    
   }
 }

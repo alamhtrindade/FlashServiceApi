@@ -238,6 +238,35 @@ class ServiceController{
 
   }
 
+  public function closeAction($json){
+    if(empty($json->id)){
+      
+      $this->erro->setMessage("A Identificação do Prestador de Serviço Não Pode Ser Vazio!");
+      echo json_encode($this->erro);
+      return header('HTTP/1.1 400');
+
+    }else{
+      
+      try{
+        date_default_timezone_set('America/Campo_Grande');
+          
+        $hoje =  date('d/m/Y');
+        $hoje = str_replace('/','-',$hoje);
+        $service = array('service' => $this->serviceDao->close($json->value,$hoje, $json->id),);
+
+        $this->erro->setMessage("Serviço Finalizado!");
+      echo json_encode($this->erro);
+        return header('HTTP/1.1 200');
+
+      }catch(Exception $e){
+        $this->erro->setMessage($e->getMessage());
+        echo json_encode($this->erro);
+        return header('HTTP/1.1 400');
+      }
+
+    }
+  }
+
 }
   
  

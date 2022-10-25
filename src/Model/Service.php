@@ -9,7 +9,10 @@ class Service{
   public $typeservice;
   public $description;
   public $timeservice;
-  
+  public $isend;
+  public $value;
+  public $enddate;
+
   public function __construct() { }
   
   public function setId($id){
@@ -66,6 +69,27 @@ class Service{
   }
   public function getTimeService(){
     return $this->timeservice;
+  }
+
+  public function setIsEnd($isend){
+    $this->isend = $isend;
+  }
+  public function getIsEnd(){
+    return $this->isend;
+  }
+
+  public function setValue($value){
+    $this->value = $value;
+  }
+  public function getValue(){
+    return $this->value;
+  }
+
+  public function setEndDate($enddate){
+    $this->enddate = $enddate;
+  }
+  public function getEndDate(){
+    return $this->enddate;
   }
 
 }
