@@ -32,12 +32,12 @@ class Database
 	 * @access private
 	 */
 	private $array = array ('sgbd'		=> 'PostgreSQL',
-							'host'		=> 'ec2-107-22-122-106.compute-1.amazonaws.com',
-							'name'		=> 'd1np2afberlut8',
-							'port'		=> '5432',
+							'host'		=> '',
+							'name'		=> '',
+							'port'		=> '',
 							'schema'	=> 'public',
-							'user'		=> 'esctxzpparhzzb',
-							'password' 	=> '18c3fc10f7ed6b37737ea1fb4f6c8a199f52052aa3395cb9422f010b534a49ff');
+							'user'		=> '',
+							'password' 	=> '');
 
 	/**
 	 * Class constructor.
